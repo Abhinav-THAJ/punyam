@@ -11,7 +11,7 @@ export default function BottomNav() {
   const navItems = [
     { name: "Home", href: "/", icon: Home },
     { name: "Store", href: "/shop", icon: ShoppingBag },
-    { name: "Astrology", href: "/astrology", icon: Sparkles },
+    { name: "Astrology", href: "/services", icon: Sparkles },
     { name: "Profile", href: "/dashboard", icon: User }, // /profile does not exist; dashboard sends guests to login
   ];
 
