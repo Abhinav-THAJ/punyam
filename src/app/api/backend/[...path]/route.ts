@@ -2,9 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const BACKEND_URL = 'https://punyam.pythonanywhere.com';
 
-export async function POST(request: NextRequest, { params }: { params: { path: string[] } }) {
-  const path = params.path.join('/');
-  const url = `${BACKEND_URL}/api/${path}/`;
+export async function POST(request: NextRequest, ctx: RouteContext<'/api/backend/[...path]'>) {
+  const { path } = await ctx.params;
+  const pathStr = path.join('/');
+  // Preserve trailing slash for Django REST Framework
+  const url = `${BACKEND_URL}/api/${pathStr}/`;
 
   try {
     const body = await request.json();
@@ -21,11 +23,12 @@ export async function POST(request: NextRequest, { params }: { params: { path: s
   }
 }
 
-export async function GET(request: NextRequest, { params }: { params: { path: string[] } }) {
-  const path = params.path.join('/');
+export async function GET(request: NextRequest, ctx: RouteContext<'/api/backend/[...path]'>) {
+  const { path } = await ctx.params;
+  const pathStr = path.join('/');
   const { searchParams } = new URL(request.url);
   const queryString = searchParams.toString();
-  const url = `${BACKEND_URL}/api/${path}/${queryString ? `?${queryString}` : ''}`;
+  const url = `${BACKEND_URL}/api/${pathStr}/${queryString ? `?${queryString}` : ''}`;
 
   try {
     const res = await fetch(url, {
