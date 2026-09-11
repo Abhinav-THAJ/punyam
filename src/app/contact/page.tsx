@@ -11,9 +11,9 @@ export default function ContactPage() {
         </p>
       </div>
 
-      <div className="grid-2" style={{ gap: "60px", alignItems: "start" }}>
+      <div className="grid-2 product-layout" style={{ alignItems: "start" }}>
         {/* Contact Form */}
-        <div style={{ backgroundColor: "var(--white)", padding: "40px", borderRadius: "12px", border: "1px solid var(--border-color)", boxShadow: "0 4px 20px rgba(0,0,0,0.02)" }}>
+        <div className="product-details-card">
           <h3 style={{ fontSize: "24px", fontFamily: "var(--font-playfair)", marginBottom: "24px" }}>Send us a Message</h3>
           <form>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
@@ -41,7 +41,7 @@ export default function ContactPage() {
         </div>
 
         {/* Contact Info */}
-        <div>
+        <div className="product-details-card">
           <div style={{ marginBottom: "40px" }}>
             <h3 style={{ fontSize: "24px", fontFamily: "var(--font-playfair)", marginBottom: "24px" }}>Contact Information</h3>
             <p style={{ color: "var(--text-muted)", marginBottom: "32px", lineHeight: "1.7" }}>
