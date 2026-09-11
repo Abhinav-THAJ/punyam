@@ -64,14 +64,14 @@ export default function BookingModal({ isOpen, onClose, astrologerName, astrolog
     setLoading(true);
     const userId = getUserId();
     const userBookingsPromise = userId 
-      ? fetch(`https://punyam.pythonanywhere.com/api/bookings/?user=${userId}&date=${date}`).then(res => res.ok ? res.json() : { results: [] }).catch(() => ({ results: [] }))
+      ? fetch(`/api/backend/bookings?user=${userId}&date=${date}`).then(res => res.ok ? res.json() : { results: [] }).catch(() => ({ results: [] }))
       : Promise.resolve({ results: [] });
 
     try {
       const [langs, tops, slotsResp, userBookingsResp] = await Promise.all([
-        fetch("https://punyam.pythonanywhere.com/api/languages/").then(res => res.ok ? res.json() : []).catch(() => []),
-        fetch("https://punyam.pythonanywhere.com/api/consultation-topics/").then(res => res.ok ? res.json() : []).catch(() => []),
-        fetch(`https://punyam.pythonanywhere.com/api/time-slots/?astrologer=${astrologerId}&date=${date}`).then(res => res.ok ? res.json() : { results: [] }).catch(() => ({ results: [] })),
+        fetch("/api/backend/languages").then(res => res.ok ? res.json() : []).catch(() => []),
+        fetch("/api/backend/consultation-topics").then(res => res.ok ? res.json() : []).catch(() => []),
+        fetch(`/api/backend/time-slots?astrologer=${astrologerId}&date=${date}`).then(res => res.ok ? res.json() : { results: [] }).catch(() => ({ results: [] })),
         userBookingsPromise
       ]);
 
@@ -202,7 +202,7 @@ export default function BookingModal({ isOpen, onClose, astrologerName, astrolog
         notes: noteParts.join(" | ")
       };
 
-      const bookingRes = await fetch("https://punyam.pythonanywhere.com/api/bookings/", {
+      const bookingRes = await fetch("/api/backend/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookingPayload)

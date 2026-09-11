@@ -11,7 +11,7 @@ export default function ConsultationPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://punyam.pythonanywhere.com/api/astrologers/")
+    fetch("/api/backend/astrologers")
       .then(res => res.ok ? res.json() : { results: [] })
       .then(data => {
         const list = data?.results || (Array.isArray(data) ? data : []);

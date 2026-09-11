@@ -41,8 +41,8 @@ export default function AuthPortal() {
     setSuccess("");
 
     try {
-      const endpoint = isLogin ? "/api/auth/login/" : "/api/auth/register/";
-      const url = `https://punyam.pythonanywhere.com${endpoint}`;
+      const endpoint = isLogin ? "auth/login" : "auth/register";
+      const url = `/api/backend/${endpoint}`;
       
       const payload = isLogin 
         ? { email: formData.email, password: formData.password }

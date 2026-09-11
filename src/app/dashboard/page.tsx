@@ -82,7 +82,7 @@ export default function DashboardPage() {
       setUserName(storedName);
     } else {
       // Attempt to fetch user profile if no name is cached
-      fetch(`https://punyam.pythonanywhere.com/api/users/${userId}/`)
+      fetch(`/api/backend/users/${userId}`)
         .then(res => res.ok ? res.json() : null)
         .then(data => {
           if (data && data.first_name) {
@@ -93,7 +93,7 @@ export default function DashboardPage() {
         .catch(() => {});
     }
 
-    fetch(`https://punyam.pythonanywhere.com/api/bookings/?user=${userId}`)
+    fetch(`/api/backend/bookings?user=${userId}`)
       .then(res => res.ok ? res.json() : { results: [] })
       .then(data => {
         const list = data?.results || (Array.isArray(data) ? data : []);
