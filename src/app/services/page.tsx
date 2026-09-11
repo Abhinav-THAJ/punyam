@@ -20,7 +20,7 @@ export default function ServicesPage() {
           <p style={{ color: "var(--text-muted)", marginBottom: "24px" }}>
             Get accurate horoscope readings, daily panchang, and personalized astrological guidance powered by expert astrologers.
           </p>
-          <Link href="/astrology" className="btn btn-primary" style={{ display: 'inline-block' }}>INSTANT ASTRO REPORT</Link>
+          <Link href="/astrology/instant-report" className="btn btn-primary" style={{ display: 'inline-block' }}>INSTANT ASTRO REPORT</Link>
         </div>
         
         <div style={{ backgroundColor: "var(--white)", padding: "40px", borderRadius: "8px", border: "1px solid var(--border-color)", textAlign: "center" }}>

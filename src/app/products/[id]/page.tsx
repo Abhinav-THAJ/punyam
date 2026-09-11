@@ -122,9 +122,18 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           />
           
           <div style={{ backgroundColor: "var(--bg-color)", padding: "1.5rem", borderRadius: "12px", fontSize: "0.95rem", color: "var(--text-muted)", marginTop: "2.5rem", border: "1px solid var(--border-color)" }}>
-            <p style={{ marginBottom: "12px", display: "flex", alignItems: "center", gap: "12px" }}><span style={{ fontSize: "1.2rem" }}>🚚</span> <strong>Fast Delivery:</strong> Ships within 24-48 hours.</p>
-            <p style={{ marginBottom: "12px", display: "flex", alignItems: "center", gap: "12px" }}><span style={{ fontSize: "1.2rem" }}>🛡️</span> <strong>Authenticity Guaranteed:</strong> 100% genuine and blessed.</p>
-            <p style={{ display: "flex", alignItems: "center", gap: "12px" }}><span style={{ fontSize: "1.2rem" }}>🔄</span> <strong>Easy Returns:</strong> 7-day hassle-free return policy.</p>
+            <div style={{ marginBottom: "12px", display: "flex", alignItems: "flex-start", gap: "12px" }}>
+              <span style={{ fontSize: "1.2rem" }}>🚚</span> 
+              <span><strong>Fast Delivery:</strong> Ships within 24-48 hours.</span>
+            </div>
+            <div style={{ marginBottom: "12px", display: "flex", alignItems: "flex-start", gap: "12px" }}>
+              <span style={{ fontSize: "1.2rem" }}>🛡️</span> 
+              <span><strong>Authenticity Guaranteed:</strong> 100% genuine and blessed.</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
+              <span style={{ fontSize: "1.2rem" }}>🔄</span> 
+              <span><strong>Easy Returns:</strong> 7-day hassle-free return policy.</span>
+            </div>
           </div>
         </div>
       </div>
