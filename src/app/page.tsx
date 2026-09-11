@@ -97,7 +97,7 @@ export default async function Home() {
       {/* FEATURED PRODUCTS SECTION */}
       <section className={`section-padding`}>
         <div className="container">
-          <div className={styles.sectionHeader} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px' }}>
+          <div className={styles.sectionHeader}>
             <div>
               <div className={styles.sectionSubtitle}>FEATURED PRODUCTS</div>
               <h2 className={styles.sectionTitle}>Shop the Best</h2>
@@ -105,11 +105,7 @@ export default async function Home() {
             <Link href="/shop" className="btn btn-outline">VIEW ALL PRODUCTS</Link>
           </div>
 
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 250px), 1fr))",
-            gap: "2rem"
-          }}>
+          <div className="product-slider">
             {featuredProducts.slice(0, 4).map((product: any) => {
               const productImage = product.images?.[0]?.src || "https://images.unsplash.com/photo-1605335949573-3e1150c95094?auto=format&fit=crop&q=80";
               return (

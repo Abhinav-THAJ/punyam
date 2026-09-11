@@ -106,18 +106,20 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           
           <div style={{ width: "100%", height: "1px", backgroundColor: "var(--border-color)", margin: "2rem 0" }}></div>
           
+          <div style={{ marginBottom: "2.5rem" }}>
+            {inStock ? (
+              <AddToCartButton product={cartProduct} />
+            ) : (
+               <button disabled style={{ width: "100%", padding: "16px", backgroundColor: "#e0e0e0", color: "#888", border: "none", borderRadius: "8px", fontSize: "16px", fontWeight: "600", cursor: "not-allowed" }}>
+                 CURRENTLY UNAVAILABLE
+               </button>
+            )}
+          </div>
+          
           <div 
             style={{ color: "var(--text-muted)", lineHeight: "1.8", marginBottom: "2.5rem", fontSize: "1rem" }}
             dangerouslySetInnerHTML={{ __html: descriptionHtml }}
           />
-          
-          {inStock ? (
-            <AddToCartButton product={cartProduct} />
-          ) : (
-             <button disabled style={{ width: "100%", padding: "16px", backgroundColor: "#e0e0e0", color: "#888", border: "none", borderRadius: "8px", fontSize: "16px", fontWeight: "600", cursor: "not-allowed" }}>
-               CURRENTLY UNAVAILABLE
-             </button>
-          )}
           
           <div style={{ backgroundColor: "var(--bg-color)", padding: "1.5rem", borderRadius: "12px", fontSize: "0.95rem", color: "var(--text-muted)", marginTop: "2.5rem", border: "1px solid var(--border-color)" }}>
             <p style={{ marginBottom: "12px", display: "flex", alignItems: "center", gap: "12px" }}><span style={{ fontSize: "1.2rem" }}>🚚</span> <strong>Fast Delivery:</strong> Ships within 24-48 hours.</p>

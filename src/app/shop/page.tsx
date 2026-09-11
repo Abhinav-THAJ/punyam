@@ -70,12 +70,7 @@ export default async function ShopPage() {
         </p>
       </div>
 
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))",
-        gap: "2rem",
-        marginBottom: "4rem"
-      }}>
+      <div className="collection-grid" style={{ marginBottom: "4rem" }}>
         {displayCollections.map((collection: any) => (
           <Link href={`/shop/category/${collection.slug}`} key={collection.id} style={{ display: "block" }}>
             <div className="hover-card" style={{

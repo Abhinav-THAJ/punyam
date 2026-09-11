@@ -112,6 +112,45 @@ input:focus, textarea:focus {
   gap: 20px;
 }
 
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.product-slider {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+}
+
+.product-slider::-webkit-scrollbar {
+  height: 6px;
+}
+
+.product-slider::-webkit-scrollbar-track {
+  background: var(--bg-color);
+  border-radius: 4px;
+}
+
+.product-slider::-webkit-scrollbar-thumb {
+  background: #E5DEC9;
+  border-radius: 4px;
+}
+
+.product-slider > div {
+  flex: 0 0 260px; /* fixed width for cards in slider */
+  max-width: 80vw; /* ensure it doesn't exceed screen width on very small devices */
+}
+
 .btn {
   display: inline-block;
   padding: 12px 24px;
@@ -171,6 +210,10 @@ input:focus, textarea:focus {
 @media (max-width: 768px) {
   .grid-2, .grid-3, .grid-4, .grid-6 {
     grid-template-columns: 1fr;
+  }
+  .product-grid, .collection-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
   .section-padding {
     padding: 40px 0;

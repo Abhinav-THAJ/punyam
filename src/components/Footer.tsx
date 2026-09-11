@@ -13,18 +13,14 @@ export default function Footer() {
           </div>
           <div className={styles.footerLinks}>
             <h4>QUICK LINKS</h4>
-            <div style={{ display: 'flex', gap: '40px' }}>
-              <ul>
-                <li><Link href="/shop">Shop</Link></li>
-                <li><Link href="/astrology">Astrology Report</Link></li>
-                <li><Link href="/consultation">Consultation</Link></li>
-              </ul>
-              <ul>
-                <li><Link href="/cart">Cart</Link></li>
-                <li><Link href="/checkout">Checkout</Link></li>
-                <li><Link href="/dashboard">My Dashboard</Link></li>
-              </ul>
-            </div>
+            <ul>
+              <li><Link href="/shop">Shop</Link></li>
+              <li><Link href="/astrology">Astrology Report</Link></li>
+              <li><Link href="/consultation">Consultation</Link></li>
+              <li><Link href="/cart">Cart</Link></li>
+              <li><Link href="/checkout">Checkout</Link></li>
+              <li><Link href="/dashboard">My Dashboard</Link></li>
+            </ul>
           </div>
           <div className={styles.footerLinks}>
             <h4>CUSTOMER CARE</h4>
