@@ -43,7 +43,7 @@ export default function Footer() {
           </div>
         </div>
         <div className={styles.footerBottom}>
-          <p>© 2024 Punyam Store. All Rights Reserved.</p>
+          <p>© 2026 empireae. All Rights Reserved.</p>
           <p>Designed with ❤️ for a Spiritual World</p>
         </div>
       </div>

@@ -35,8 +35,7 @@ export default async function Home() {
               Punyam is your one-stop destination for authentic spiritual products, astrology services, sacred journeys, enriching literature, cultural programs and a vibrant spiritual community.
             </p>
             <div className={styles.heroActions}>
-              <Link href="/shop" className="btn btn-primary">EXPLORE STORE</Link>
-              <Link href="/astrology" className="btn btn-outline">BOOK CONSULTATION</Link>
+              <Link href="/consultation" className="btn btn-primary" style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)', color: '#000', border: 'none' }}>BOOK CONSULTATION</Link>
             </div>
           </div>
         </div>
@@ -241,20 +240,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* NEWSLETTER SECTION */}
-      <section className={styles.newsletterSection}>
-        <div className="container flex-between">
-          <div className={styles.newsletterInfo}>
-            <div className={styles.sectionSubtitle}>BE THE FIRST TO KNOW</div>
-            <h2 className={styles.sectionTitle}>Stay Updated with Punyam</h2>
-            <p>Subscribe to our newsletter for the latest updates, offers and spiritual insights.</p>
-          </div>
-          <div className={styles.newsletterForm}>
-            <input type="email" placeholder="Enter your email address" />
-            <button className="btn btn-primary">SUBSCRIBE</button>
-          </div>
-        </div>
-      </section>
 
     </div>
   );
