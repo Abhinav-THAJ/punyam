@@ -22,14 +22,14 @@ export default function AboutPage() {
       {/* Mission & Vision */}
       <div className="grid-2" style={{ gap: "40px", marginBottom: "80px" }}>
         <div style={{ backgroundColor: "var(--white)", padding: "40px", borderRadius: "8px", border: "1px solid var(--border-color)" }}>
-          <div style={{ fontSize: "32px", marginBottom: "16px" }}>👁️</div>
+          <div style={{ fontSize: "clamp(24px, 6.5vw, 32px)", marginBottom: "16px" }}>👁️</div>
           <h3 style={{ fontSize: "24px", fontFamily: "var(--font-playfair)", marginBottom: "16px" }}>Our Vision</h3>
           <p style={{ color: "var(--text-muted)", lineHeight: "1.7" }}>
             To create a globally recognized ecosystem where the timeless wisdom of ancient traditions seamlessly merges with modern convenience, fostering a community of enlightened and empowered individuals.
           </p>
         </div>
         <div style={{ backgroundColor: "var(--white)", padding: "40px", borderRadius: "8px", border: "1px solid var(--border-color)" }}>
-          <div style={{ fontSize: "32px", marginBottom: "16px" }}>🎯</div>
+          <div style={{ fontSize: "clamp(24px, 6.5vw, 32px)", marginBottom: "16px" }}>🎯</div>
           <h3 style={{ fontSize: "24px", fontFamily: "var(--font-playfair)", marginBottom: "16px" }}>Our Mission</h3>
           <p style={{ color: "var(--text-muted)", lineHeight: "1.7" }}>
             To curate the highest quality spiritual goods, partner with the most authentic astrologers, and organize the most transformative yatras, all while giving back to the community and supporting traditional artisans.
@@ -39,7 +39,7 @@ export default function AboutPage() {
 
       {/* Core Values */}
       <div style={{ textAlign: "center", marginBottom: "80px" }}>
-        <h2 style={{ fontSize: "32px", fontFamily: "var(--font-playfair)", marginBottom: "40px" }}>Our Core Values</h2>
+        <h2 style={{ fontSize: "clamp(24px, 6.5vw, 32px)", fontFamily: "var(--font-playfair)", marginBottom: "40px" }}>Our Core Values</h2>
         <div className="grid-4" style={{ gap: "24px" }}>
           {[
             { icon: "✨", title: "Authenticity", desc: "100% genuine products and verified spiritual experts." },
@@ -58,7 +58,7 @@ export default function AboutPage() {
 
       {/* Leadership / Team */}
       <div style={{ textAlign: "center", marginBottom: "40px" }}>
-        <h2 style={{ fontSize: "32px", fontFamily: "var(--font-playfair)", marginBottom: "40px" }}>Meet Our Guides</h2>
+        <h2 style={{ fontSize: "clamp(24px, 6.5vw, 32px)", fontFamily: "var(--font-playfair)", marginBottom: "40px" }}>Meet Our Guides</h2>
         <div style={{ display: "flex", justifyContent: "center", gap: "40px", flexWrap: "wrap" }}>
           
           <div style={{ width: "250px" }}>

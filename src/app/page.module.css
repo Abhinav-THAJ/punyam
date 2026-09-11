@@ -303,6 +303,7 @@
 
 .exploreLink {
   font-size: 10px;
+  padding: 10px 0; /* taller tap target on touch screens */
   font-weight: 700;
   color: var(--primary-color);
   text-transform: uppercase;

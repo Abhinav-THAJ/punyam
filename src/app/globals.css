@@ -200,3 +200,33 @@ input:focus, textarea:focus {
     padding-bottom: 65px;
   }
 }
+
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+.hover-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Media is never wider than its container. */
+img, video, iframe, canvas {
+  max-width: 100%;
+}
+
+/* Phones: iOS Safari zooms in on any form field under 16px when it is tapped.
+   !important because most fields on the site set their font size inline. */
+@media (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Phones: the header is sticky and takes its own space (components.module.css),
+   so the 80px top margin that pages use to clear the floating desktop header
+   would leave a doubled gap. !important because those margins are inline. */
+@media (max-width: 768px) {
+  main > .container:first-child {
+    margin-top: 0 !important;
+  }
+}

@@ -37,7 +37,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         
         <div style={{ padding: "20px 0" }}>
           <div className="sectionSubtitle">SPIRITUAL GOODS</div>
-          <h1 style={{ fontSize: "36px", fontFamily: "var(--font-playfair)", margin: "16px 0", color: "var(--text-main)" }}>
+          <h1 style={{ fontSize: "clamp(26px, 7vw, 36px)", fontFamily: "var(--font-playfair)", margin: "16px 0", color: "var(--text-main)" }}>
             {product.title.rendered}
           </h1>
           <p style={{ fontSize: "28px", color: "var(--primary-color)", fontWeight: "600", marginBottom: "24px" }}>

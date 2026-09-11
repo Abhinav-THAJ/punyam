@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function ServicesPage() {
   return (
     <div className="container section-padding" style={{ marginTop: "80px", minHeight: "60vh" }}>
@@ -13,21 +15,21 @@ export default function ServicesPage() {
 
       <div className="grid-2" style={{ marginTop: "60px" }}>
         <div style={{ backgroundColor: "var(--white)", padding: "40px", borderRadius: "8px", border: "1px solid var(--border-color)", textAlign: "center" }}>
-          <div style={{ fontSize: "40px", marginBottom: "16px" }}>✨</div>
+          <div style={{ fontSize: "clamp(28px, 8vw, 40px)", marginBottom: "16px" }}>✨</div>
           <h3 style={{ fontSize: "20px", fontFamily: "var(--font-playfair)", marginBottom: "12px" }}>Astrology</h3>
           <p style={{ color: "var(--text-muted)", marginBottom: "24px" }}>
             Get accurate horoscope readings, daily panchang, and personalized astrological guidance powered by expert astrologers.
           </p>
-          <button className="btn btn-primary">BOOK CONSULTATION</button>
+          <Link href="/astrology" className="btn btn-primary" style={{ display: 'inline-block' }}>INSTANT ASTRO REPORT</Link>
         </div>
         
         <div style={{ backgroundColor: "var(--white)", padding: "40px", borderRadius: "8px", border: "1px solid var(--border-color)", textAlign: "center" }}>
-          <div style={{ fontSize: "40px", marginBottom: "16px" }}>🏔️</div>
+          <div style={{ fontSize: "clamp(28px, 8vw, 40px)", marginBottom: "16px" }}>🏔️</div>
           <h3 style={{ fontSize: "20px", fontFamily: "var(--font-playfair)", marginBottom: "12px" }}>Yatra Bookings</h3>
           <p style={{ color: "var(--text-muted)", marginBottom: "24px" }}>
             Embark on sacred journeys and pilgrimages across India with our curated travel packages and trusted operators.
           </p>
-          <button className="btn btn-primary">EXPLORE PACKAGES</button>
+          <Link href="/consultation" className="btn btn-primary" style={{ display: 'inline-block' }}>BOOK CONSULTATION</Link>
         </div>
       </div>
     </div>

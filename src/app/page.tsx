@@ -3,8 +3,18 @@ import Link from "next/link";
 import styles from "./page.module.css";
 import { Play, ArrowRight } from "lucide-react";
 import { FaInstagram, FaYoutube, FaFacebook, FaWhatsapp, FaTelegram } from "react-icons/fa";
+import { getProducts } from "../lib/woocommerce";
 
-export default function Home() {
+export default async function Home() {
+  let featuredProducts: any[] = [];
+  try {
+    const products = await getProducts();
+    if (Array.isArray(products)) {
+      featuredProducts = products;
+    }
+  } catch (error) {
+    console.error("Failed to load featured products:", error);
+  }
   return (
     <div className={styles.main}>
       {/* HERO SECTION */}
@@ -84,56 +94,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* EXPLORE SECTION */}
-      <section className={`section-padding ${styles.exploreSection}`}>
+      {/* FEATURED PRODUCTS SECTION */}
+      <section className={`section-padding`}>
         <div className="container">
-          <div className={styles.exploreHeader}>
+          <div className={styles.sectionHeader} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px' }}>
             <div>
-              <div className={styles.sectionSubtitle}>WHAT WE OFFER</div>
-              <h2 className={styles.sectionTitle}>Explore Punyam</h2>
+              <div className={styles.sectionSubtitle}>FEATURED PRODUCTS</div>
+              <h2 className={styles.sectionTitle}>Shop the Best</h2>
             </div>
-            <p className={styles.exploreDesc}>
-              From spiritual products to life guidance, we bring together everything that enriches your spiritual journey.
-            </p>
+            <Link href="/shop" className="btn btn-outline">VIEW ALL PRODUCTS</Link>
           </div>
 
-          <div className="grid-6">
-            <div className={styles.exploreCard}>
-              <div className={styles.exploreIcon}>🛍️</div>
-              <h3 className={styles.exploreCardTitle}>Punyam Store</h3>
-              <p className={styles.exploreCardDesc}>Authentic spiritual products from trusted sellers across India.</p>
-              <a href="/shop" className={styles.exploreLink}>EXPLORE STORE <ArrowRight size={14} /></a>
-            </div>
-            <div className={styles.exploreCard}>
-              <div className={styles.exploreIcon}>✨</div>
-              <h3 className={styles.exploreCardTitle}>Punyam Astrology</h3>
-              <p className={styles.exploreCardDesc}>Consult with experts or check your horoscope online.</p>
-              <a href="/astrology" className={styles.exploreLink}>EXPLORE ASTROLOGY <ArrowRight size={14} /></a>
-            </div>
-            <div className={styles.exploreCard}>
-              <div className={styles.exploreIcon}>🤝</div>
-              <h3 className={styles.exploreCardTitle}>Punyam Community</h3>
-              <p className={styles.exploreCardDesc}>Join a like-minded spiritual community and make an impact.</p>
-              <a href="/community" className={styles.exploreLink}>JOIN COMMUNITY <ArrowRight size={14} /></a>
-            </div>
-            <div className={styles.exploreCard}>
-              <div className={styles.exploreIcon}>🏔️</div>
-              <h3 className={styles.exploreCardTitle}>Punyam Yatra</h3>
-              <p className={styles.exploreCardDesc}>Book spiritual journeys curated by trusted travel partners.</p>
-              <a href="/yatra" className={styles.exploreLink}>EXPLORE YATRA <ArrowRight size={14} /></a>
-            </div>
-            <div className={styles.exploreCard}>
-              <div className={styles.exploreIcon}>📖</div>
-              <h3 className={styles.exploreCardTitle}>Punyam Literature</h3>
-              <p className={styles.exploreCardDesc}>Read, learn and download spiritual books and ebooks.</p>
-              <a href="/literature" className={styles.exploreLink}>EXPLORE LITERATURE <ArrowRight size={14} /></a>
-            </div>
-            <div className={styles.exploreCard}>
-              <div className={styles.exploreIcon}>🎭</div>
-              <h3 className={styles.exploreCardTitle}>Punyam Culturals</h3>
-              <p className={styles.exploreCardDesc}>Celebrate our culture through events, arts and programs.</p>
-              <a href="/culturals" className={styles.exploreLink}>EXPLORE CULTURALS <ArrowRight size={14} /></a>
-            </div>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 250px), 1fr))",
+            gap: "2rem"
+          }}>
+            {featuredProducts.slice(0, 4).map((product: any) => {
+              const productImage = product.images?.[0]?.src || "https://images.unsplash.com/photo-1605335949573-3e1150c95094?auto=format&fit=crop&q=80";
+              return (
+                <div key={product.id} className="hover-card" style={{ border: "1px solid var(--border-color)", borderRadius: "12px", padding: "16px", textAlign: "center", backgroundColor: "var(--white)", display: "flex", flexDirection: "column" }}>
+                  <Link href={`/products/${product.id}`} style={{ display: "block", height: "200px", borderRadius: "8px", marginBottom: "16px", overflow: "hidden", backgroundColor: "#f9f9f9" }}>
+                    <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <img src={productImage} alt={product.name} style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                    </div>
+                  </Link>
+                  <Link href={`/products/${product.id}`} style={{ textDecoration: 'none' }}>
+                    <h3 style={{ fontSize: "1.1rem", fontFamily: "var(--font-playfair)", marginBottom: "8px", minHeight: "40px", color: "var(--text-main)" }}>{product.name}</h3>
+                  </Link>
+                  <p style={{ color: "var(--primary-color)", fontWeight: "600", marginTop: "auto", marginBottom: "16px", fontSize: "1.1rem" }}>₹{parseFloat(product.price || "0").toLocaleString()}</p>
+                  <Link href={`/products/${product.id}`} className="btn btn-outline" style={{ width: "100%", fontSize: "0.85rem", padding: "10px", display: "inline-block", textAlign: "center", borderRadius: "6px" }}>
+                    VIEW DETAILS
+                  </Link>
+                </div>
+              );
+            })}
+            
+            {featuredProducts.length === 0 && (
+              <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: "40px", color: "var(--text-muted)" }}>
+                Products are currently being updated. Please check back later.
+              </div>
+            )}
           </div>
         </div>
       </section>

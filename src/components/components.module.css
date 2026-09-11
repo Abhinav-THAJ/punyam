@@ -192,6 +192,11 @@
   .header {
     background-color: var(--bg-color); /* Add solid background on mobile so menu doesn't blend with hero image */
     padding: 15px 0;
+    /* On phones the header is solid, so floating it over the page hid the top
+       of every page (e.g. the Book a Consultation heading). Sticky keeps it in
+       the flow and visible while scrolling. */
+    position: sticky;
+    top: 0;
   }
   .menuToggle {
     display: flex;
@@ -244,11 +249,9 @@
 }
 
 @media (max-width: 480px) {
+  /* Menu links stay 16px on phones - 12px was too small to read or tap. */
   .nav ul {
-    gap: 12px;
-  }
-  .nav a {
-    font-size: 12px;
+    gap: 16px;
   }
   .footerLinks {
     flex-direction: column;
@@ -315,4 +318,68 @@
   background-color: #f9f9f9;
   color: var(--primary-color, #c19b63);
   padding-bottom: 12px !important; /* Override the .nav a:hover padding */
+}
+
+/* Header actions. The sizes used to be inline, which cannot respond to
+   screen width; together with the logo they overflowed a 375px phone. */
+.actions .authBtn {
+  margin-left: 15px;
+  padding: 8px 16px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.labelShort {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .logo img {
+    height: 56px;
+  }
+  .desktopOnly {
+    display: none;
+  }
+  .actions {
+    gap: 12px;
+  }
+  .actions .authBtn {
+    margin-left: 0;
+    padding: 7px 12px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  /* Let a long menu scroll instead of being cut off at a fixed height. */
+  .navOpen {
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+  }
+  /* Touch screens have no hover, so show the Astrology links inline in the
+     menu rather than in a hover dropdown. */
+  .nav ul.dropdownMenu {
+    display: flex;
+    position: static;
+    box-shadow: none;
+    background: transparent;
+    min-width: 0;
+    padding: 10px 0 0;
+    align-items: center;
+  }
+  .nav ul.dropdownMenu li a {
+    text-align: center;
+    padding: 8px 20px;
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+  .dropdownToggle {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .labelLong {
+    display: none;
+  }
+  .labelShort {
+    display: inline;
+  }
 }

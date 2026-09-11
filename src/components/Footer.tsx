@@ -15,29 +15,21 @@ export default function Footer() {
             <h4>QUICK LINKS</h4>
             <div style={{ display: 'flex', gap: '40px' }}>
               <ul>
-                <li><Link href="/about">About Us</Link></li>
                 <li><Link href="/shop">Shop</Link></li>
-                <li><Link href="/astrology">Astrology</Link></li>
-                <li><Link href="/yatra">Yatra</Link></li>
-                <li><Link href="/literature">Literature</Link></li>
+                <li><Link href="/astrology">Astrology Report</Link></li>
+                <li><Link href="/consultation">Consultation</Link></li>
               </ul>
               <ul>
-                <li><Link href="/community">Community</Link></li>
-                <li><Link href="/culturals">Culturals</Link></li>
-                <li><Link href="/contact">Contact Us</Link></li>
-                <li><Link href="/policies">Terms & Conditions</Link></li>
-                <li><Link href="/policies">Privacy Policy</Link></li>
+                <li><Link href="/cart">Cart</Link></li>
+                <li><Link href="/checkout">Checkout</Link></li>
+                <li><Link href="/dashboard">My Dashboard</Link></li>
               </ul>
             </div>
           </div>
           <div className={styles.footerLinks}>
             <h4>CUSTOMER CARE</h4>
             <ul>
-              <li><Link href="/contact">Help Center</Link></li>
-              <li><Link href="/policies">Shipping Policy</Link></li>
-              <li><Link href="/policies">Return Policy</Link></li>
-              <li><Link href="/policies">Refund Policy</Link></li>
-              <li><Link href="#">Track Your Order</Link></li>
+              <li><Link href="/contact">Contact Us</Link></li>
             </ul>
           </div>
           <div className={styles.footerContact}>

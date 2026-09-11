@@ -12,7 +12,7 @@ export default function BottomNav() {
     { name: "Home", href: "/", icon: Home },
     { name: "Store", href: "/shop", icon: ShoppingBag },
     { name: "Astrology", href: "/astrology", icon: Sparkles },
-    { name: "Profile", href: "/profile", icon: User },
+    { name: "Profile", href: "/dashboard", icon: User }, // /profile does not exist; dashboard sends guests to login
   ];
 
   return (

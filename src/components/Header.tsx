@@ -8,6 +8,16 @@ import styles from "./components.module.css";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check authentication status
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('user_id');
+    if (token || userId) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   // Close menu on resize to desktop
   useEffect(() => {
@@ -32,14 +42,16 @@ export default function Header() {
             <li><Link href="/" onClick={() => setIsMenuOpen(false)}>Home</Link></li>
             <li><Link href="/about" onClick={() => setIsMenuOpen(false)}>About</Link></li>
             <li><Link href="/services" onClick={() => setIsMenuOpen(false)}>Services</Link></li>
+            <li><Link href="/products" onClick={() => setIsMenuOpen(false)}>Products</Link></li>
             
             <li className={styles.dropdown}>
               <span className={styles.dropdownToggle}>Astrology ▾</span>
               <ul className={styles.dropdownMenu}>
-                <li><Link href="/astrology/premium" onClick={() => setIsMenuOpen(false)}>Premium Daily Astrology</Link></li>
                 <li><Link href="/astrology/instant-report" onClick={() => setIsMenuOpen(false)}>Instant Astro Report</Link></li>
                 <li><Link href="/consultation" onClick={() => setIsMenuOpen(false)}>Book Consultation</Link></li>
-                <li><Link href="/dashboard" onClick={() => setIsMenuOpen(false)}>My Dashboard</Link></li>
+                {isLoggedIn && (
+                  <li><Link href="/dashboard" onClick={() => setIsMenuOpen(false)}>My Dashboard</Link></li>
+                )}
               </ul>
             </li>
             
@@ -49,11 +61,28 @@ export default function Header() {
 
         <div className={styles.actions}>
           <div className={styles.headerIcons}>
-            <button><Search size={20} /></button>
-            <button><User size={20} /></button>
+            <button className={styles.desktopOnly} aria-label="Search"><Search size={20} /></button>
+            <button className={styles.desktopOnly} aria-label="Account"><User size={20} /></button>
             <CartIcon />
           </div>
-          <Link href="/login" className="btn btn-primary" style={{ marginLeft: '15px', padding: '8px 16px', fontSize: '14px' }}>Login / Register</Link>
+          {isLoggedIn ? (
+            <button 
+              className={`btn btn-primary ${styles.authBtn}`}
+              onClick={() => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user_id');
+                setIsLoggedIn(false);
+                window.location.href = '/';
+              }}
+            >
+              Logout
+            </button>
+          ) : (
+            <Link href="/login" className={`btn btn-primary ${styles.authBtn}`}>
+              <span className={styles.labelLong}>Login / Register</span>
+              <span className={styles.labelShort}>Login</span>
+            </Link>
+          )}
           <button 
             className={styles.menuToggle} 
             onClick={() => setIsMenuOpen(!isMenuOpen)}

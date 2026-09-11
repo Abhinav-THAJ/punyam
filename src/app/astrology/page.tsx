@@ -82,7 +82,7 @@ export default function AstrologyPage() {
       
       try {
         // 1. Try fetching from the Next.js API (used for local development)
-        const endpoint = activeTab === 'panchang' ? 'panchang' : 'birth-details';
+        const endpoint = activeTab === 'panchang' ? 'panchang' : 'kundli';
         res = await fetch(`/api/astrology/${endpoint}?coordinates=${city}&datetime=${datetime}`);
         
         // If it returns an HTML 404 page (meaning we are on Hostinger where Next.js APIs don't exist)
@@ -272,40 +272,85 @@ export default function AstrologyPage() {
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
               <h3 className={styles.resultTitle}>Birth Details (Kundli)</h3>
               <div className={styles.scrollArea}>
-                
-                <div className={styles.resultItem}>
-                  <p className={styles.resultLabel}>Nakshatra (Birth Star)</p>
-                  <p className={styles.resultValue}>{resultData.nakshatra?.name || 'N/A'}</p>
-                  <p className={styles.resultSubValue}>Pada: {resultData.nakshatra?.pada || 'N/A'} | Lord: {resultData.nakshatra?.lord?.name || 'N/A'}</p>
-                </div>
-
-                <div className={styles.resultItem}>
-                  <p className={styles.resultLabel}>Rasi (Moon Sign)</p>
-                  <p className={styles.resultValue}>{resultData.rasi?.name || 'N/A'}</p>
-                  <p className={styles.resultSubValue}>Lord: {resultData.rasi?.lord?.name || 'N/A'}</p>
-                </div>
-
-                <div className={styles.resultItem}>
-                  <p className={styles.resultLabel}>Zodiac (Sun Sign)</p>
-                  <p className={styles.resultValue}>{resultData.zodiac?.name || 'N/A'}</p>
-                  <p className={styles.resultSubValue}>Lord: {resultData.zodiac?.lord?.name || 'N/A'}</p>
-                </div>
-
-                <div className={styles.resultItem}>
-                  <p className={styles.resultLabel}>Additional Details</p>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '5px' }}>
-                    <div>
-                      <span className={styles.badge}>Tithi: {resultData.tithi?.name || 'N/A'}</span>
+                {/* For /v2/astrology/kundli format */}
+                {resultData.nakshatra_details ? (
+                  <>
+                    <div className={styles.resultItem}>
+                      <p className={styles.resultLabel}>Nakshatra (Birth Star)</p>
+                      <p className={styles.resultValue}>{resultData.nakshatra_details.nakshatra?.name || 'N/A'}</p>
+                      <p className={styles.resultSubValue}>Pada: {resultData.nakshatra_details.nakshatra?.pada || 'N/A'} | Lord: {resultData.nakshatra_details.nakshatra?.lord?.name || 'N/A'}</p>
                     </div>
-                    <div>
-                      <span className={styles.badge}>Karan: {resultData.karan?.name || 'N/A'}</span>
+
+                    <div className={styles.resultItem}>
+                      <p className={styles.resultLabel}>Chandra Rasi (Moon Sign)</p>
+                      <p className={styles.resultValue}>{resultData.nakshatra_details.chandra_rasi?.name || 'N/A'}</p>
+                      <p className={styles.resultSubValue}>Lord: {resultData.nakshatra_details.chandra_rasi?.lord?.name || 'N/A'}</p>
                     </div>
-                    <div>
-                      <span className={styles.badge}>Yoga: {resultData.yoga?.name || 'N/A'}</span>
+
+                    <div className={styles.resultItem}>
+                      <p className={styles.resultLabel}>Surya Rasi (Sun Sign)</p>
+                      <p className={styles.resultValue}>{resultData.nakshatra_details.surya_rasi?.name || 'N/A'}</p>
+                      <p className={styles.resultSubValue}>Lord: {resultData.nakshatra_details.surya_rasi?.lord?.name || 'N/A'}</p>
+                    </div>
+                    
+                    {resultData.mangal_dosha && (
+                      <div className={styles.resultItem}>
+                        <p className={styles.resultLabel}>Mangal Dosha</p>
+                        <p className={styles.resultValue}>{resultData.mangal_dosha.has_dosha ? 'Yes' : 'No'}</p>
+                        <p className={styles.resultSubValue}>{resultData.mangal_dosha.description || ''}</p>
+                      </div>
+                    )}
+                    
+                    {resultData.yoga_details && resultData.yoga_details.length > 0 && (
+                      <div className={styles.resultItem}>
+                        <p className={styles.resultLabel}>Yoga Details</p>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '5px' }}>
+                          {resultData.yoga_details.slice(0, 4).map((yoga: any, idx: number) => (
+                            <div key={idx}>
+                              <span className={styles.badge}>{yoga.name}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <>
+                  {/* Fallback to original birth-details format */}
+                  <div className={styles.resultItem}>
+                    <p className={styles.resultLabel}>Nakshatra (Birth Star)</p>
+                    <p className={styles.resultValue}>{resultData.nakshatra?.name || 'N/A'}</p>
+                    <p className={styles.resultSubValue}>Pada: {resultData.nakshatra?.pada || 'N/A'} | Lord: {resultData.nakshatra?.lord?.name || 'N/A'}</p>
+                  </div>
+
+                  <div className={styles.resultItem}>
+                    <p className={styles.resultLabel}>Rasi (Moon Sign)</p>
+                    <p className={styles.resultValue}>{resultData.rasi?.name || 'N/A'}</p>
+                    <p className={styles.resultSubValue}>Lord: {resultData.rasi?.lord?.name || 'N/A'}</p>
+                  </div>
+
+                  <div className={styles.resultItem}>
+                    <p className={styles.resultLabel}>Zodiac (Sun Sign)</p>
+                    <p className={styles.resultValue}>{resultData.zodiac?.name || 'N/A'}</p>
+                    <p className={styles.resultSubValue}>Lord: {resultData.zodiac?.lord?.name || 'N/A'}</p>
+                  </div>
+
+                  <div className={styles.resultItem}>
+                    <p className={styles.resultLabel}>Additional Details</p>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '5px' }}>
+                      <div>
+                        <span className={styles.badge}>Tithi: {resultData.tithi?.name || 'N/A'}</span>
+                      </div>
+                      <div>
+                        <span className={styles.badge}>Karan: {resultData.karan?.name || 'N/A'}</span>
+                      </div>
+                      <div>
+                        <span className={styles.badge}>Yoga: {resultData.yoga?.name || 'N/A'}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-
+                  </>
+                )}
               </div>
             </div>
           )}
