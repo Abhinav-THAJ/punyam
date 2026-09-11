@@ -21,7 +21,7 @@ export default async function ShopPage() {
     }
     
     if (Array.isArray(categoriesData)) {
-      categories = categoriesData.filter((c: any) => c.slug !== 'uncategorized' && c.count > 0);
+      categories = categoriesData.filter((c: any) => c.slug !== 'uncategorized');
     }
   } catch (error) {
     console.error("Error loading products:", error);

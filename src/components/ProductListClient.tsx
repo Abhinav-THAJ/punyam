@@ -12,7 +12,9 @@ export default function ProductListClient({ initialProducts, categories }: { ini
   const { addToCart } = useCart();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [priceRange, setPriceRange] = useState<number>(5000);
+  // Initialize priceRange very high, will be corrected in useEffect if needed, 
+  // but better to just use derived max value for the slider bounds.
+  const [priceRange, setPriceRange] = useState<number>(Infinity);
   const [sortBy, setSortBy] = useState("latest");
   // On small screens the filters collapse behind a toggle instead of a fixed sidebar.
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -62,6 +64,18 @@ export default function ProductListClient({ initialProducts, categories }: { ini
     return result;
   }, [productsToUse, selectedCategory, searchQuery, priceRange, sortBy]);
 
+  const maxProductPrice = useMemo(() => {
+    if (productsToUse.length === 0) return 10000;
+    return Math.ceil(Math.max(...productsToUse.map(p => p.price)));
+  }, [productsToUse]);
+
+  const minProductPrice = useMemo(() => {
+    if (productsToUse.length === 0) return 0;
+    return Math.floor(Math.min(...productsToUse.map(p => p.price)));
+  }, [productsToUse]);
+
+  // Use the actual range based on products if priceRange is Infinity
+  const currentMaxPrice = priceRange === Infinity ? maxProductPrice : priceRange;
   return (
     <div className={styles.layout}>
 
@@ -176,7 +190,7 @@ export default function ProductListClient({ initialProducts, categories }: { ini
             <h3 style={{ fontSize: "1.5rem", fontFamily: "var(--font-playfair)", marginBottom: "0.5rem" }}>No Products Found</h3>
             <p style={{ color: "var(--text-muted)" }}>Try adjusting your filters or search query to find what you're looking for.</p>
             <button 
-              onClick={() => { setSelectedCategory("all"); setSearchQuery(""); setPriceRange(5000); }}
+              onClick={() => { setSelectedCategory("all"); setSearchQuery(""); setPriceRange(Infinity); }}
               className="btn btn-outline" style={{ marginTop: "1.5rem" }}
             >
               Clear Filters
@@ -261,19 +275,19 @@ export default function ProductListClient({ initialProducts, categories }: { ini
 
         {/* Price Range Filter */}
         <div style={{ marginBottom: "1rem" }}>
-          <h3 style={{ fontSize: "0.95rem", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "1rem", color: "var(--text-main)" }}>Max Price: ₹{priceRange.toLocaleString()}</h3>
+          <h3 style={{ fontSize: "0.95rem", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "1rem", color: "var(--text-main)" }}>Max Price: ₹{currentMaxPrice.toLocaleString()}</h3>
           <input 
             type="range" 
-            min="100" 
-            max="10000" 
+            min={minProductPrice} 
+            max={maxProductPrice} 
             step="100"
-            value={priceRange}
+            value={currentMaxPrice}
             onChange={(e) => setPriceRange(parseInt(e.target.value))}
             style={{ width: "100%", accentColor: "var(--primary-color)", cursor: "pointer" }}
           />
           <div style={{ display: "flex", justifyContent: "space-between", marginTop: "0.5rem", fontSize: "0.8rem", color: "var(--text-muted)" }}>
-            <span>₹100</span>
-            <span>₹10,000</span>
+            <span>₹{minProductPrice.toLocaleString()}</span>
+            <span>₹{maxProductPrice.toLocaleString()}</span>
           </div>
         </div>
 
