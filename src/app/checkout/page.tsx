@@ -21,7 +21,8 @@ export default function CheckoutPage() {
   if (!mounted) return <div className="container section-padding" style={{ marginTop: "80px", minHeight: "70vh" }}>Loading...</div>;
 
   const tax = cartTotal * 0.18;
-  const grandTotal = cartTotal + tax;
+  const shipping = 40;
+  const grandTotal = cartTotal + tax + shipping;
 
   const loadRazorpayScript = (): Promise<boolean> => {
     return new Promise((resolve) => {
@@ -215,8 +216,8 @@ export default function CheckoutPage() {
             <h3 style={{ fontSize: "20px", fontFamily: "var(--font-playfair)", marginBottom: "24px" }}>Your Order</h3>
 
             <div style={{ marginBottom: "24px" }}>
-              {items.map(item => (
-                <div key={item.id} style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", fontSize: "14px" }}>
+              {items.map((item, index) => (
+                <div key={`${item.id}-${index}`} style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", fontSize: "14px" }}>
                   <span style={{ color: "var(--text-main)" }}>{item.name} <span style={{ color: "var(--text-muted)" }}>x {item.quantity}</span></span>
                   <span style={{ fontWeight: 500 }}>₹{(item.price * item.quantity).toLocaleString()}</span>
                 </div>
@@ -229,7 +230,7 @@ export default function CheckoutPage() {
               <span>Subtotal</span><span>₹{cartTotal.toLocaleString()}</span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", color: "var(--text-muted)", fontSize: "14px" }}>
-              <span>Shipping</span><span style={{ color: "green" }}>FREE</span>
+              <span>Shipping</span><span style={{ color: "var(--text-main)" }}>₹{shipping}</span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", color: "var(--text-muted)", fontSize: "14px" }}>
               <span>GST (18%)</span><span>₹{tax.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>

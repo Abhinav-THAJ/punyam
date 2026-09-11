@@ -68,24 +68,16 @@ export default function AstrologyPage() {
   const [resultData, setResultData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchAstrologyData = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setResultData(null);
-
+  const fetchAstrologyDataInternal = async () => {
     try {
       const datetime = `${date}T${time}:00Z`;
-      
       let res;
       let data;
       
       try {
-        // 1. Try fetching from the Next.js API (used for local development)
         const endpoint = activeTab === 'panchang' ? 'panchang' : 'kundli';
         res = await fetch(`/api/astrology/${endpoint}?coordinates=${city}&datetime=${datetime}`);
         
-        // If it returns an HTML 404 page (meaning we are on Hostinger where Next.js APIs don't exist)
         const contentType = res.headers.get("content-type");
         if (!res.ok || (contentType && contentType.indexOf("text/html") !== -1)) {
            throw new Error("Next.js API missing, falling back to PHP");
@@ -93,7 +85,6 @@ export default function AstrologyPage() {
         
         data = await res.json();
       } catch (e) {
-        // 2. Fallback to PHP Backend (used for Hostinger static deployment)
         res = await fetch(`/astrology-api.php?action=${activeTab}&coordinates=${city}&datetime=${datetime}`);
         data = await res.json();
       }
@@ -110,6 +101,70 @@ export default function AstrologyPage() {
         setError('An unknown error occurred');
       }
     } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchAstrologyData = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setResultData(null);
+
+    try {
+      // Load Razorpay
+      const loadRazorpayScript = (): Promise<boolean> => {
+        return new Promise((resolve) => {
+          if ((window as any).Razorpay) { resolve(true); return; }
+          const script = document.createElement("script");
+          script.src = "https://checkout.razorpay.com/v1/checkout.js";
+          script.onload = () => resolve(true);
+          script.onerror = () => resolve(false);
+          document.body.appendChild(script);
+        });
+      };
+
+      const loaded = await loadRazorpayScript();
+      if (!loaded) {
+        throw new Error("Failed to load Razorpay. Please check your internet connection.");
+      }
+
+      // Create Razorpay order server-side
+      const orderRes = await fetch("/api/razorpay/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: 99, bookingId: `ASTRO_${Date.now()}` }) // 99 Rs for Instant Report
+      });
+      const orderData = await orderRes.json();
+      if (!orderRes.ok) {
+        throw new Error(orderData.error || "Failed to initiate payment");
+      }
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "Punyam Astrology",
+        description: `Instant Astro Report - ${activeTab === 'panchang' ? 'Panchang' : 'Kundli'}`,
+        order_id: orderData.orderId,
+        theme: { color: "#c19b63" },
+        handler: async (response: any) => {
+          // Payment successful, now fetch the report
+          await fetchAstrologyDataInternal();
+        },
+        modal: {
+          ondismiss: () => { setLoading(false); }
+        }
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on("payment.failed", (response: any) => {
+        setError(`Payment failed: ${response.error.description}`);
+        setLoading(false);
+      });
+      rzp.open();
+    } catch (err: any) {
+      setError(err.message || "An unexpected error occurred.");
       setLoading(false);
     }
   };

@@ -42,6 +42,13 @@ export async function POST(req: Request) {
         country: 'IN',
         phone: form.phone
       },
+      shipping_lines: [
+        {
+          method_id: 'flat_rate',
+          method_title: 'Flat Rate',
+          total: '40.00'
+        }
+      ],
       line_items: lineItems,
       meta_data: [
         {

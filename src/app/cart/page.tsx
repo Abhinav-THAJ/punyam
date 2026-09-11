@@ -17,7 +17,8 @@ export default function CartPage() {
   }
 
   const tax = cartTotal * 0.18;
-  const grandTotal = cartTotal + tax;
+  const shipping = 40;
+  const grandTotal = cartTotal + tax + shipping;
 
   return (
     <div className="container section-padding" style={{ marginTop: "80px", minHeight: "70vh" }}>
@@ -76,7 +77,7 @@ export default function CartPage() {
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "16px", color: "var(--text-muted)", fontSize: "14px" }}>
                 <span>Shipping</span>
-                <span style={{ color: "green" }}>FREE</span>
+                <span style={{ color: "var(--text-main)" }}>₹{shipping}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "24px", color: "var(--text-muted)", fontSize: "14px" }}>
                 <span>GST (18%)</span>

@@ -62,7 +62,7 @@ export default function Header() {
         <div className={styles.actions}>
           <div className={styles.headerIcons}>
             <button className={styles.desktopOnly} aria-label="Search"><Search size={20} /></button>
-            <button className={styles.desktopOnly} aria-label="Account"><User size={20} /></button>
+            <Link href={isLoggedIn ? "/dashboard" : "/login"} className={styles.desktopOnly} aria-label="Account" style={{ color: 'inherit' }}><User size={20} /></Link>
             <CartIcon />
           </div>
           {isLoggedIn ? (
