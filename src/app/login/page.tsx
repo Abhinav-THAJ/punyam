@@ -266,12 +266,6 @@ export default function AuthPortal() {
               </div>
             )}
 
-            {isLogin && (
-              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '-10px' }}>
-                <a href="#" style={{ fontSize: '13px', color: 'var(--primary-color)', fontWeight: 600, display: 'inline-block', padding: '8px 0' }}>Forgot Password?</a>
-              </div>
-            )}
-
             <button type="submit" disabled={loading} className="btn btn-primary" style={{ width: '100%', padding: '16px', fontSize: '16px', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '10px', opacity: loading ? 0.7 : 1 }}>
               {loading ? "Please wait..." : (isLogin ? "Sign In" : "Create Account")}
               {!loading && <ArrowRight size={18} />}
