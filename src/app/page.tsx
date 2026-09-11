@@ -178,7 +178,7 @@ export default async function Home() {
       <section className={`section-padding ${styles.testimonialsSection}`}>
         <div className="container">
           <div className="text-center">
-            <div className={styles.sectionSubtitle}>
+            <div className={styles.sectionSubtitle} style={{ justifyContent: 'center' }}>
               <span className={styles.line}></span> TESTIMONIALS <span className={styles.line}></span>
             </div>
             <h2 className={styles.sectionTitle}>What People Say</h2>

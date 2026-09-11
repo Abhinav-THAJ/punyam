@@ -80,7 +80,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         <ArrowLeft size={16} /> Back to Products
       </Link>
       
-      <div className="grid-2" style={{ gap: "4rem" }}>
+      <div className="grid-2 product-layout">
         <div style={{ backgroundColor: "var(--white)", borderRadius: "16px", padding: "40px", display: "flex", alignItems: "center", justifyContent: "center", minHeight: "500px", border: "1px solid var(--border-color)", boxShadow: "0 4px 12px rgba(0,0,0,0.03)", position: "relative" }}>
           <img src={productImage} alt={product.name} style={{ maxWidth: "100%", maxHeight: "500px", objectFit: "contain" }} />
           {!inStock && (
@@ -95,7 +95,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           )}
         </div>
         
-        <div style={{ padding: "10px 0" }}>
+        <div className="product-details-card">
           <div className="sectionSubtitle" style={{ marginBottom: "1rem" }}>AUTHENTIC SPIRITUAL ITEM</div>
           <h1 style={{ fontSize: "2.5rem", fontFamily: "var(--font-playfair)", margin: "0 0 1rem 0", color: "var(--text-main)", lineHeight: "1.2" }}>
             {product.name}
